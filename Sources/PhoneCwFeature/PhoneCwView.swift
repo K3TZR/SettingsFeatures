@@ -1,5 +1,5 @@
 //
-//  PhoneCwSettingsView.swift
+//  PhoneCwView.swift
 //  ViewFeatures/SettingsFeature/PhoneCw
 //
 //  Created by Douglas Adams on 5/13/21.
@@ -12,12 +12,15 @@ import ApiIntView
 import FlexApi
 import Shared
 
-struct PhoneCwSettingsView: View {
-  let store: StoreOf<PhoneCwSettingsFeature>
+public struct PhoneCwView: View {
+  let store: StoreOf<PhoneCwFeature>
   
+  public init(store: StoreOf<PhoneCwFeature>) {
+    self.store = store
+  }
   @Dependency(\.objectModel) var objectModel
   
-  var body: some View {
+  public var body: some View {
     
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       if objectModel.radio == nil {
@@ -57,7 +60,7 @@ struct PhoneCwSettingsView: View {
 }
 
 private struct MicGridView: View {
-  let viewStore: ViewStore<PhoneCwSettingsFeature.State, PhoneCwSettingsFeature.Action>
+  let viewStore: ViewStore<PhoneCwFeature.State, PhoneCwFeature.Action>
   @ObservedObject var transmit: Transmit
 
   var body: some View {
@@ -78,7 +81,7 @@ private struct MicGridView: View {
 }
 
 private struct CwGridView: View {
-  let viewStore: ViewStore<PhoneCwSettingsFeature.State, PhoneCwSettingsFeature.Action>
+  let viewStore: ViewStore<PhoneCwFeature.State, PhoneCwFeature.Action>
   @ObservedObject var transmit: Transmit
 
   private let iambicModes = ["A", "B"]
@@ -129,7 +132,7 @@ private struct CwGridView: View {
 }
 
 private struct FiltersGridView: View {
-  let viewStore: ViewStore<PhoneCwSettingsFeature.State, PhoneCwSettingsFeature.Action>
+  let viewStore: ViewStore<PhoneCwFeature.State, PhoneCwFeature.Action>
   @ObservedObject var radio: Radio
 
   var body: some View {
@@ -169,7 +172,7 @@ private struct FiltersGridView: View {
 }
 
 private struct RttyGridView: View {
-  let viewStore: ViewStore<PhoneCwSettingsFeature.State, PhoneCwSettingsFeature.Action>
+  let viewStore: ViewStore<PhoneCwFeature.State, PhoneCwFeature.Action>
   @ObservedObject var radio: Radio
 
   var body: some View {
@@ -182,11 +185,11 @@ private struct RttyGridView: View {
   }
 }
 
-//struct PhoneCwSettingsView_Previews: PreviewProvider {
+//struct PhoneCwView_Previews: PreviewProvider {
 //  static var previews: some View {
-//    PhoneCwSettingsView(store: Store(
-//      initialState: PhoneCwSettingsFeature.State(),
-//      reducer: PhoneCwSettingsFeature())
+//    PhoneCwView(store: Store(
+//      initialState: PhoneCwFeature.State(),
+//      reducer: PhoneCwFeature())
 //    )
 //    .frame(width: 600, height: 350)
 //    .padding()

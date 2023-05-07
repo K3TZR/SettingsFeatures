@@ -1,5 +1,5 @@
 //
-//  ColorsSettingsView.swift
+//  ColorsView.swift
 //  ViewFeatures/SettingsFeature/Colors
 //
 //  Created by Douglas Adams on 5/13/21.
@@ -8,10 +8,14 @@
 import ComposableArchitecture
 import SwiftUI
 
-struct ColorsSettingsView: View {
-  let store: StoreOf<ColorsSettingsFeature>
-  
-  var body: some View {
+public struct ColorsView: View {
+  let store: StoreOf<ColorsFeature>
+
+  public init(store: StoreOf<ColorsFeature>) {
+    self.store = store
+  }
+
+  public var body: some View {
     
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       VStack {
@@ -31,7 +35,7 @@ struct ColorsSettingsView: View {
 }
 
 private struct TopHalfView: View {
-  let viewStore: ViewStore<ColorsSettingsFeature.State, ColorsSettingsFeature.Action>
+  let viewStore: ViewStore<ColorsFeature.State, ColorsFeature.Action>
   
   var body: some View {
     
@@ -91,7 +95,7 @@ private struct TopHalfView: View {
 }
 
 private struct BottomHalfView: View {
-  let viewStore: ViewStore<ColorsSettingsFeature.State, ColorsSettingsFeature.Action>
+  let viewStore: ViewStore<ColorsFeature.State, ColorsFeature.Action>
   
   var body: some View {
     
@@ -145,11 +149,11 @@ private struct BottomHalfView: View {
 }
 
 
-struct ColorsSettingsView_Previews: PreviewProvider {
+struct ColorsView_Previews: PreviewProvider {
   static var previews: some View {
-    ColorsSettingsView(store: Store(
-      initialState: ColorsSettingsFeature.State(),
-      reducer: ColorsSettingsFeature())
+    ColorsView(store: Store(
+      initialState: ColorsFeature.State(),
+      reducer: ColorsFeature())
     )
     .frame(width: 600, height: 350)
     .padding()

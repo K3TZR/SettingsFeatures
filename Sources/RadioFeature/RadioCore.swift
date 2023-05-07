@@ -1,5 +1,5 @@
 //
-//  RadioSettingsCore.swift
+//  RadioCore.swift
 //  ViewFeatures/SettingsFeature/Radio
 //
 //  Created by Douglas Adams on 12/31/22.
@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 import FlexApi
 
-public struct RadioSettingsFeature: ReducerProtocol {
+public struct RadioFeature: ReducerProtocol {
   public init() {}
   
   public struct State: Equatable {
@@ -23,7 +23,7 @@ public struct RadioSettingsFeature: ReducerProtocol {
     case sliceMinimizedButton
   }
   
-  public var body: some ReducerProtocol<RadioSettingsFeature.State, RadioSettingsFeature.Action> {
+  public var body: some ReducerProtocol<RadioFeature.State, RadioFeature.Action> {
     Reduce {state, action in
       switch action {
 

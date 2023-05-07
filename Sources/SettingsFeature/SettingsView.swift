@@ -1,6 +1,6 @@
 //
 //  SettingsView.swift
-//  ViewFeatures/SettingsFeature
+//  SettingsFeature/SettingsFeature
 //
 //
 //  Created by Douglas Adams on 12/21/22.
@@ -8,6 +8,16 @@
 
 import ComposableArchitecture
 import SwiftUI
+
+import ColorsFeature
+import GpsFeature
+import NetworkFeature
+import OtherFeature
+import PhoneCwFeature
+import ProfilesFeature
+import RadioFeature
+import TxFeature
+import XvtrFeature
 
 import FlexApi
 import Shared
@@ -41,37 +51,37 @@ public struct SettingsView: View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       TabView(selection: $selectedSettingType) {
         Group {
-          RadioSettingsView(store: Store(
-            initialState: RadioSettingsFeature.State(),
-            reducer: RadioSettingsFeature()), radio: objectModel.radio ?? Radio(Packet()))
+          RadioView(store: Store(
+            initialState: RadioFeature.State(),
+            reducer: RadioFeature()), radio: objectModel.radio ?? Radio(Packet()))
           .tabItem {
             Text(SettingType.radio.rawValue)
             Image(systemName: "antenna.radiowaves.left.and.right")
           }.tag(SettingType.radio)
           
-          NetworkSettingsView(store: Store(initialState: NetworkSettingsFeature.State(),
-                                           reducer: NetworkSettingsFeature()),
+          NetworkView(store: Store(initialState: NetworkFeature.State(),
+                                           reducer: NetworkFeature()),
                               radio: objectModel.radio ?? Radio(Packet()) )
           .tabItem {
             Text(SettingType.network.rawValue)
             Image(systemName: "wifi")
           }.tag(SettingType.network)
           
-          GpsSettingsView()
+          GpsView()
             .tabItem {
               Text("Gps")
               Image(systemName: "globe")
             }.tag(SettingType.gps)
           
-          TxSettingsView(store: Store(initialState: TxSettingsFeature.State(),
-                                      reducer: TxSettingsFeature()) )
+          TxView(store: Store(initialState: TxFeature.State(),
+                                      reducer: TxFeature()) )
           .tabItem {
             Text(SettingType.tx.rawValue)
             Image(systemName: "bolt.horizontal")
           }.tag(SettingType.tx)
           
-          PhoneCwSettingsView(store: Store(initialState: PhoneCwSettingsFeature.State(),
-                                           reducer: PhoneCwSettingsFeature()))
+          PhoneCwView(store: Store(initialState: PhoneCwFeature.State(),
+                                           reducer: PhoneCwFeature()))
           .tabItem {
             Text(SettingType.phoneCw.rawValue)
             Image(systemName: "mic")
@@ -84,30 +94,30 @@ public struct SettingsView: View {
           //              Text("Rx")
           //              Image(systemName: "headphones")
           //            }
-          XvtrSettingsView()
+          XvtrView()
             .tabItem {
               Text(SettingType.xvtrs.rawValue)
               Image(systemName: "arrow.up.arrow.down.circle")
             }.tag(SettingType.xvtrs)
           
-          ProfilesSettingsView(
+          ProfilesView(
             store:
-              Store(initialState: ProfilesSettingsFeature.State(),
-                    reducer: ProfilesSettingsFeature()) )
+              Store(initialState: ProfilesFeature.State(),
+                    reducer: ProfilesFeature()) )
           .tabItem {
             Text(SettingType.profiles.rawValue)
             Image(systemName: "brain.head.profile")
           }.tag(SettingType.profiles)
 
-          ColorsSettingsView(store: Store(initialState: ColorsSettingsFeature.State(),
-                                          reducer: ColorsSettingsFeature()))
+          ColorsView(store: Store(initialState: ColorsFeature.State(),
+                                          reducer: ColorsFeature()))
           .tabItem {
             Text(SettingType.colors.rawValue)
             Image(systemName: "eyedropper")
           }.tag(SettingType.colors)
 
-          OtherSettingsView(store: Store(initialState: OtherSettingsFeature.State(),
-                                          reducer: OtherSettingsFeature()))
+          OtherView(store: Store(initialState: OtherFeature.State(),
+                                          reducer: OtherFeature()))
           .tabItem {
             Text(SettingType.other.rawValue)
             Image(systemName: "gear")

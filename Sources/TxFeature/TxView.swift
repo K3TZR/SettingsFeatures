@@ -1,6 +1,6 @@
 //
-//  TxSettingsView.swift
-//  ViewFeatures/SettingsFeature/Tx
+//  TxView.swift
+//  SettingsFeature/TxFeature
 //
 //  Created by Douglas Adams on 5/13/21.
 //
@@ -11,13 +11,16 @@ import SwiftUI
 import ApiIntView
 import FlexApi
 
-struct TxSettingsView: View {
-  let store: StoreOf<TxSettingsFeature>
+public struct TxView: View {
+  let store: StoreOf<TxFeature>
   
+  public init(store: StoreOf<TxFeature>) {
+    self.store = store
+  }
   @Dependency(\.apiModel) var apiModel
   @Dependency(\.objectModel) var objectModel
   
-  var body: some View {
+  public var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       if apiModel.clientInitialized {
         VStack {
@@ -47,7 +50,7 @@ struct TxSettingsView: View {
 }
 
 private struct InterlocksGridView: View {
-  let viewStore: ViewStore<TxSettingsFeature.State, TxSettingsFeature.Action>
+  let viewStore: ViewStore<TxFeature.State, TxFeature.Action>
   @ObservedObject var interlock: Interlock
   
   private let interlockLevels = ["Disabled", "Active High", "Active Low"]
@@ -134,7 +137,7 @@ private struct InterlocksGridView: View {
 }
 
 private struct TxGridView: View {
-  let viewStore: ViewStore<TxSettingsFeature.State, TxSettingsFeature.Action>
+  let viewStore: ViewStore<TxFeature.State, TxFeature.Action>
   @ObservedObject var interlock: Interlock
   @ObservedObject var txProfile: Profile
   @ObservedObject var transmit: Transmit
@@ -179,9 +182,9 @@ private struct TxGridView: View {
   }
 }
 
-struct TxSettingsView_Previews: PreviewProvider {
+struct TxView_Previews: PreviewProvider {
   static var previews: some View {
-    TxSettingsView(store: Store(initialState: TxSettingsFeature.State(), reducer: TxSettingsFeature()))
+    TxView(store: Store(initialState: TxFeature.State(), reducer: TxFeature()))
       .frame(width: 600, height: 350)
       .padding()
   }

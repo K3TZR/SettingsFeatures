@@ -1,5 +1,5 @@
 //
-//  ProfilesSettingsCore.swift
+//  ProfilesCore.swift
 //  ViewFeatures/SettingsFeature/Profiles
 //
 //  Created by Douglas Adams on 12/31/22.
@@ -11,7 +11,7 @@ import SwiftUI
 
 import FlexApi
 
-public struct ProfilesSettingsFeature: ReducerProtocol {
+public struct ProfilesFeature: ReducerProtocol {
   
   public init() {}
   

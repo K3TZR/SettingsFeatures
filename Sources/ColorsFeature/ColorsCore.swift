@@ -1,5 +1,5 @@
 //
-//  ColorsSettingsCore.swift
+//  ColorsCore.swift
 //  ViewFeatures/SettingsFeature/Colors
 //
 //  Created by Douglas Adams on 12/31/22.
@@ -12,7 +12,7 @@ import SwiftUI
 import FlexApi
 import Shared
 
-public struct ColorsSettingsFeature: ReducerProtocol {
+public struct ColorsFeature: ReducerProtocol {
   
   public init() {}
   
@@ -92,8 +92,8 @@ public struct ColorsSettingsFeature: ReducerProtocol {
   
   public enum Action: Equatable {
     case setDefaults
-    case color(WritableKeyPath<ColorsSettingsFeature.State, Color>, Color)
-    case reset(WritableKeyPath<ColorsSettingsFeature.State, Color>, String)
+    case color(WritableKeyPath<ColorsFeature.State, Color>, Color)
+    case reset(WritableKeyPath<ColorsFeature.State, Color>, String)
     case resetAll
   }
   

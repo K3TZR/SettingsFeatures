@@ -1,5 +1,5 @@
 //
-//  OtherSettingsView.swift
+//  OtherView.swift
 //  
 //
 //  Created by Douglas Adams on 3/1/23.
@@ -8,9 +8,12 @@
 import ComposableArchitecture
 import SwiftUI
 
-public struct OtherSettingsView: View {
-  let store: StoreOf<OtherSettingsFeature>
+public struct OtherView: View {
+  let store: StoreOf<OtherFeature>
 
+  public init(store: StoreOf<OtherFeature>) {
+    self.store = store
+  }
   @AppStorage("meterId") public var meterId: Int = 4
   
   struct Meter {
@@ -47,11 +50,11 @@ public struct OtherSettingsView: View {
   }
 }
 
-struct OtherSettingsView_Previews: PreviewProvider {
+struct OtherView_Previews: PreviewProvider {
   static var previews: some View {
-    OtherSettingsView(store: Store(
-      initialState: OtherSettingsFeature.State(),
-      reducer: OtherSettingsFeature())
+    OtherView(store: Store(
+      initialState: OtherFeature.State(),
+      reducer: OtherFeature())
     )
   }
 }

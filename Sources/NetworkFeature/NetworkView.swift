@@ -1,5 +1,5 @@
 //
-//  NetworkSettingsView.swift
+//  NetworkView.swift
 //  ViewFeatures/SettingsFeature/Network
 //
 //  Created by Douglas Adams on 5/13/21.
@@ -12,13 +12,17 @@ import ApiStringView
 import FlexApi
 import Shared
 
-struct NetworkSettingsView: View {
-  let store: StoreOf<NetworkSettingsFeature>
+public struct NetworkView: View {
+  let store: StoreOf<NetworkFeature>
   @ObservedObject var radio: Radio
   
+  public init(store: StoreOf<NetworkFeature>, radio: Radio) {
+    self.store = store
+    self.radio = radio
+  }
   @Dependency(\.apiModel) var apiModel
   
-  var body: some View {
+  public var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       if apiModel.clientInitialized {
         VStack {
@@ -43,10 +47,10 @@ struct NetworkSettingsView: View {
 }
 
 private struct CurrentAddressView: View {
-  let viewStore: ViewStore<NetworkSettingsFeature.State, NetworkSettingsFeature.Action>
+  let viewStore: ViewStore<NetworkFeature.State, NetworkFeature.Action>
   @ObservedObject var radio: Radio
   
-  init(viewStore: ViewStore<NetworkSettingsFeature.State, NetworkSettingsFeature.Action>, radio: Radio) {
+  init(viewStore: ViewStore<NetworkFeature.State, NetworkFeature.Action>, radio: Radio) {
     self.viewStore = viewStore
     self.radio = radio
   }
@@ -88,7 +92,7 @@ private struct CurrentAddressView: View {
 }
 
 private struct StaticAddressView: View {
-  let viewStore: ViewStore<NetworkSettingsFeature.State, NetworkSettingsFeature.Action>
+  let viewStore: ViewStore<NetworkFeature.State, NetworkFeature.Action>
   @ObservedObject var radio: Radio
 
   private let width: CGFloat = 140
@@ -114,9 +118,9 @@ private struct StaticAddressView: View {
   }
 }
 
-struct NetworkSettingsView_Previews: PreviewProvider {
+struct NetworkView_Previews: PreviewProvider {
   static var previews: some View {
-    NetworkSettingsView(store: Store(initialState: NetworkSettingsFeature.State(), reducer: NetworkSettingsFeature()), radio: Radio(Packet()))
+    NetworkView(store: Store(initialState: NetworkFeature.State(), reducer: NetworkFeature()), radio: Radio(Packet()))
       .frame(width: 600, height: 350)
       .padding()
   }

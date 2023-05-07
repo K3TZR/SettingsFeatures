@@ -1,23 +1,26 @@
 //
-//  XvtrSettingsView.swift
-//  ViewFeatures/SettingsFeature/Xvtr
+//  XvtrView.swift
+//  SettingsFeature/Xvtr
 //
 //  Created by Douglas Adams on 5/13/21.
 //
 
 import SwiftUI
 
-struct XvtrSettingsView: View {
-    var body: some View {
+public struct XvtrView: View {
+  
+  public init() {}
+  
+  public var body: some View {
         Text("Xvtr View not implemented").font(.title).foregroundColor(.red)
         .frame(width: 600, height: 400)
         .padding()
     }
 }
 
-struct XvtrSettingsView_Previews: PreviewProvider {
+struct XvtrView_Previews: PreviewProvider {
   static var previews: some View {
-    XvtrSettingsView()
+    XvtrView()
       .frame(width: 600, height: 400)
       .padding()
   }

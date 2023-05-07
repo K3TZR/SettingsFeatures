@@ -1,5 +1,5 @@
 //
-//  ProfilesSettingsView.swift
+//  ProfilesView.swift
 //  ViewFeatures/SettingsFeature/Profiles
 //
 //  Created by Douglas Adams on 12/30/22.
@@ -16,15 +16,18 @@ public enum ProfileType: String {
   case global
 }
 
-struct ProfilesSettingsView: View {
-  let store: StoreOf<ProfilesSettingsFeature>
+public struct ProfilesView: View {
+  let store: StoreOf<ProfilesFeature>
   
+  public init(store: StoreOf<ProfilesFeature>) {
+    self.store = store
+  }
   @AppStorage("selectedProfileType") var selectedProfileType: ProfileType = .mic
   
   @Dependency(\.apiModel) var apiModel
   @Dependency(\.objectModel) var objectModel
   
-  var body: some View {
+  public var body: some View {
     
     if apiModel.clientInitialized {
       ProfileView(store: store, profile: objectModel.profiles[id: selectedProfileType.rawValue]!, profileType: selectedProfileType)
@@ -38,7 +41,7 @@ struct ProfilesSettingsView: View {
 }
 
 private struct ProfileView: View {
-  let store: StoreOf<ProfilesSettingsFeature>
+  let store: StoreOf<ProfilesFeature>
   let profile: Profile
   let profileType: ProfileType
   
@@ -97,11 +100,11 @@ private struct ProfileView: View {
 // ----------------------------------------------------------------------------
 // MARK: - Preview
 
-struct ProfilesSettingsView_Previews: PreviewProvider {
+struct ProfilesView_Previews: PreviewProvider {
   static var previews: some View {
-    ProfilesSettingsView(store: Store(
-      initialState: ProfilesSettingsFeature.State(),
-      reducer: ProfilesSettingsFeature())
+    ProfilesView(store: Store(
+      initialState: ProfilesFeature.State(),
+      reducer: ProfilesFeature())
     )
     .frame(width: 600, height: 350)
     .padding()

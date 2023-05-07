@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 import FlexApi
 
-public struct TxSettingsFeature: ReducerProtocol {
+public struct TxFeature: ReducerProtocol {
   
   public enum InterlockType {
     case acc

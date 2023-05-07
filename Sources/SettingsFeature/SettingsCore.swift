@@ -1,6 +1,6 @@
 //
 //  SettingsCore.swift
-//  ViewFeatures/SettingsFeature
+//  SettingsFeature/SettingsFeature
 //
 //  Created by Douglas Adams on 12/21/22.
 //

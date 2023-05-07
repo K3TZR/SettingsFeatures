@@ -1,5 +1,5 @@
 //
-//  PhoneCwSettingsCore.swift
+//  PhoneCwCore.swift
 //  ViewFeatures/SettingsFeature/PhoneCw
 //
 //  Created by Douglas Adams on 12/31/22.
@@ -10,7 +10,7 @@ import ComposableArchitecture
 
 import FlexApi
 
-public struct PhoneCwSettingsFeature: ReducerProtocol {
+public struct PhoneCwFeature: ReducerProtocol {
   public init() {}
   
   public struct State: Equatable {

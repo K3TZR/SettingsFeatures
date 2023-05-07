@@ -11,6 +11,15 @@ let package = Package(
   
   products: [
     .library(name: "SettingsFeature", targets: ["SettingsFeature"]),
+    .library(name: "ColorsFeature", targets: ["ColorsFeature"]),
+    .library(name: "GpsFeature", targets: ["GpsFeature"]),
+    .library(name: "NetworkFeature", targets: ["NetworkFeature"]),
+    .library(name: "OtherFeature", targets: ["OtherFeature"]),
+    .library(name: "PhoneCwFeature", targets: ["PhoneCwFeature"]),
+    .library(name: "ProfilesFeature", targets: ["ProfilesFeature"]),
+    .library(name: "RadioFeature", targets: ["RadioFeature"]),
+    .library(name: "TxFeature", targets: ["TxFeature"]),
+    .library(name: "XvtrFeature", targets: ["XvtrFeature"]),
   ],
   
   dependencies: [
@@ -23,8 +32,68 @@ let package = Package(
   
   // --------------- Modules ---------------
   targets: [
-    // SettingsFeature
+    // ColorsFeature
+    .target(name: "ColorsFeature", dependencies: [
+      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
+    // GpsFeature
+    .target(name: "GpsFeature", dependencies: [
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
+    // NetworkFeature
+    .target(name: "NetworkFeature", dependencies: [
+      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
+    // OtherFeature
+    .target(name: "OtherFeature", dependencies: [
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
+    // PhoneCwFeature
+    .target(name: "PhoneCwFeature", dependencies: [
+      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
+    // ProfilesFeature
+    .target(name: "ProfilesFeature", dependencies: [
+      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
+    // RadioFeature
+    .target(name: "RadioFeature", dependencies: [
+      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
+    // TxFeature
+    .target(name: "TxFeature", dependencies: [
+      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
+    // XvtrFeature
+    .target(name: "XvtrFeature", dependencies: [
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
+   // SettingsFeature
     .target(name: "SettingsFeature", dependencies: [
+      "ColorsFeature",
+      "GpsFeature",
+      "NetworkFeature",
+      "OtherFeature",
+      "PhoneCwFeature",
+      "ProfilesFeature",
+      "RadioFeature",
+      "TxFeature",
+      "XvtrFeature",
       .product(name: "ApiIntView", package: "CustomControlFeature"),
       .product(name: "ApiStringView", package: "CustomControlFeature"),
       .product(name: "FlexApi", package: "ApiFeature"),

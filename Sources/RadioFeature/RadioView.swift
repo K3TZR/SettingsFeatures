@@ -1,6 +1,6 @@
 //
-//  RadioSettingsView.swift
-//  ViewFeatures/SettingsFeature/Radio
+//  RadioView.swift
+//  SettingsFeature/RadioFeature
 //
 //  Created by Douglas Adams on 5/13/21.
 //
@@ -13,16 +13,20 @@ import ApiStringView
 import FlexApi
 import Shared
 
-struct RadioSettingsView: View {
-  let store: StoreOf<RadioSettingsFeature>
+public struct RadioView: View {
+  let store: StoreOf<RadioFeature>
   @ObservedObject var radio: Radio
   
+  public init(store: StoreOf<RadioFeature>, radio: Radio) {
+    self.store = store
+    self.radio = radio
+  }
   @Dependency(\.apiModel) var apiModel
   
   private let regions = ["USA", "Other"]
   private let screensavers = ["Model", "Callsign", "Nickname"]
   
-  var body: some View {
+  public var body: some View {
     
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       if apiModel.clientInitialized {
@@ -53,7 +57,7 @@ struct RadioSettingsView: View {
 }
 
 private struct RadioGridView: View {
-  let viewStore: ViewStore<RadioSettingsFeature.State, RadioSettingsFeature.Action>
+  let viewStore: ViewStore<RadioFeature.State, RadioFeature.Action>
   @ObservedObject var radio: Radio
 
   private let width: CGFloat = 150
@@ -113,7 +117,7 @@ private struct RadioGridView: View {
 }
 
 private struct ButtonsGridView: View {
-  let viewStore: ViewStore<RadioSettingsFeature.State, RadioSettingsFeature.Action>
+  let viewStore: ViewStore<RadioFeature.State, RadioFeature.Action>
   @ObservedObject var radio: Radio
   
   var body: some View {
@@ -151,7 +155,7 @@ private struct ButtonsGridView: View {
 }
 
 private struct CalibrationGridView: View {
-  let viewStore: ViewStore<RadioSettingsFeature.State, RadioSettingsFeature.Action>
+  let viewStore: ViewStore<RadioFeature.State, RadioFeature.Action>
   @ObservedObject var radio: Radio
   
   private let width: CGFloat = 100
@@ -172,10 +176,10 @@ private struct CalibrationGridView: View {
   }
 }
 
-struct RadioSettingsView_Previews: PreviewProvider {
+struct RadioView_Previews: PreviewProvider {
   static var previews: some View {
-    RadioSettingsView(store: Store(initialState: RadioSettingsFeature.State(),
-                                   reducer: RadioSettingsFeature()), radio: Radio(Packet()))
+    RadioView(store: Store(initialState: RadioFeature.State(),
+                                   reducer: RadioFeature()), radio: Radio(Packet()))
       .frame(width: 600, height: 350)
       .padding()
   }

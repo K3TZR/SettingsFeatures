@@ -1,5 +1,5 @@
 //
-//  NetworkSettingsCore.swift
+//  NetworkCore.swift
 //  ViewFeatures/SettingsFeature/Network
 //
 //  Created by Douglas Adams on 12/31/22.
@@ -8,7 +8,7 @@
 import Foundation
 import ComposableArchitecture
 
-public struct NetworkSettingsFeature: ReducerProtocol {
+public struct NetworkFeature: ReducerProtocol {
   
   public init() {}
   
