@@ -4,9 +4,8 @@
 import PackageDescription
 
 let package = Package(
-  name: "SettingsFeatures",
+  name: "SettingsFeature",
   platforms: [
-    .iOS(.v15),
     .macOS(.v13),
   ],
   
@@ -15,21 +14,24 @@ let package = Package(
   ],
   
   dependencies: [
-    .package(url: "https://github.com/K3TZR/ApiFeatures.git", branch: "main"),
-    .package(url: "https://github.com/K3TZR/SharedFeatures.git", branch: "main"),
+    // ----- K3TZR -----
+    .package(url: "https://github.com/K3TZR/ApiFeature.git", branch: "main"),
+    .package(url: "https://github.com/K3TZR/CustomControlFeature.git", branch: "main"),
+    // ----- OTHER -----
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.42.0"),
   ],
   
   // --------------- Modules ---------------
   targets: [
     // SettingsFeature
-    .target(name: "SettingsFeature",
-            dependencies: [
-              .product(name: "ApiIntView", package: "SharedFeatures"),
-              .product(name: "ApiStringView", package: "SharedFeatures"),
-              .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
-              .product(name: "FlexApi", package: "ApiFeatures"),
-              .product(name: "Shared", package: "SharedFeatures"),
-            ]),
+    .target(name: "SettingsFeature", dependencies: [
+      .product(name: "ApiIntView", package: "CustomControlFeature"),
+      .product(name: "ApiStringView", package: "CustomControlFeature"),
+      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "Shared", package: "ApiFeature"),
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
   ]
+  
+  // --------------- Tests ---------------
 )
