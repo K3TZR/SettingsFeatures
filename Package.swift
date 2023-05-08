@@ -86,6 +86,7 @@ let package = Package(
     // SettingsFeature
     .target(name: "SettingsFeature", dependencies: [
       "SettingsColorsFeature",
+      "SettingsGpsFeature",
       "SettingsNetworkFeature",
       "SettingsOtherFeature",
       "SettingsPhoneCwFeature",
