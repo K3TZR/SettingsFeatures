@@ -4,28 +4,28 @@
 import PackageDescription
 
 let package = Package(
-  name: "SettingsFeature",
+  name: "SettingsFeatures",
   platforms: [
     .macOS(.v13),
   ],
   
   products: [
     .library(name: "SettingsFeature", targets: ["SettingsFeature"]),
-//    .library(name: "ColorsFeature", targets: ["ColorsFeature"]),
-//    .library(name: "GpsFeature", targets: ["GpsFeature"]),
-//    .library(name: "NetworkFeature", targets: ["NetworkFeature"]),
-//    .library(name: "OtherFeature", targets: ["OtherFeature"]),
-//    .library(name: "PhoneCwFeature", targets: ["PhoneCwFeature"]),
-//    .library(name: "ProfilesFeature", targets: ["ProfilesFeature"]),
-//    .library(name: "RadioFeature", targets: ["RadioFeature"]),
-//    .library(name: "TxFeature", targets: ["TxFeature"]),
-//    .library(name: "XvtrFeature", targets: ["XvtrFeature"]),
+    .library(name: "SettingsColorsFeature", targets: ["SettingsColorsFeature"]),
+    .library(name: "SettingsGpsFeature", targets: ["SettingsGpsFeature"]),
+    .library(name: "SettingsNetworkFeature", targets: ["SettingsNetworkFeature"]),
+    .library(name: "SettingsOtherFeature", targets: ["SettingsOtherFeature"]),
+    .library(name: "SettingsPhoneCwFeature", targets: ["SettingsPhoneCwFeature"]),
+    .library(name: "SettingsProfilesFeature", targets: ["SettingsProfilesFeature"]),
+    .library(name: "SettingsRadioFeature", targets: ["SettingsRadioFeature"]),
+    .library(name: "SettingsTxFeature", targets: ["SettingsTxFeature"]),
+    .library(name: "SettingsXvtrFeature", targets: ["SettingsXvtrFeature"]),
   ],
   
   dependencies: [
     // ----- K3TZR -----
-    .package(url: "https://github.com/K3TZR/ApiFeature.git", branch: "main"),
-    .package(url: "https://github.com/K3TZR/CustomControlFeature.git", branch: "main"),
+    .package(url: "https://github.com/K3TZR/ApiFeatures.git", branch: "main"),
+    .package(url: "https://github.com/K3TZR/CustomControlFeatures.git", branch: "main"),
     // ----- OTHER -----
     .package(url: "https://github.com/pointfreeco/swift-composable-architecture", from: "0.42.0"),
   ],
@@ -34,7 +34,7 @@ let package = Package(
   targets: [
     // ColorsFeature
     .target(name: "SettingsColorsFeature", dependencies: [
-      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
@@ -45,7 +45,7 @@ let package = Package(
 
     // NetworkFeature
     .target(name: "SettingsNetworkFeature", dependencies: [
-      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
@@ -56,25 +56,25 @@ let package = Package(
 
     // PhoneCwFeature
     .target(name: "SettingsPhoneCwFeature", dependencies: [
-      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
     // ProfilesFeature
     .target(name: "SettingsProfilesFeature", dependencies: [
-      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
     // RadioFeature
     .target(name: "SettingsRadioFeature", dependencies: [
-      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
     // TxFeature
     .target(name: "SettingsTxFeature", dependencies: [
-      .product(name: "FlexApi", package: "ApiFeature"),
+      .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
@@ -94,10 +94,9 @@ let package = Package(
       "SettingsRadioFeature",
       "SettingsTxFeature",
       "SettingsXvtrFeature",
-      .product(name: "ApiIntView", package: "CustomControlFeature"),
-      .product(name: "ApiStringView", package: "CustomControlFeature"),
-      .product(name: "FlexApi", package: "ApiFeature"),
-      .product(name: "Shared", package: "ApiFeature"),
+      .product(name: "ApiIntView", package: "CustomControlFeatures"),
+      .product(name: "ApiStringView", package: "CustomControlFeatures"),
+      .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
   ]
