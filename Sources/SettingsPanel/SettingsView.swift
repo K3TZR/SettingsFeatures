@@ -9,15 +9,15 @@
 import ComposableArchitecture
 import SwiftUI
 
-import SettingsColorsFeature
-import SettingsGpsFeature
-import SettingsNetworkFeature
-import SettingsOtherFeature
-import SettingsPhoneCwFeature
-import SettingsProfilesFeature
-import SettingsRadioFeature
-import SettingsTxFeature
-import SettingsXvtrFeature
+import ColorSettings
+import GpsSettings
+import NetworkSettings
+import OtherSettings
+import PhoneCwSettings
+import ProfileSettings
+import RadioSettings
+import TxSettings
+import XvtrSettings
 
 import FlexApi
 import Shared

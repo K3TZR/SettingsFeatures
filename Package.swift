@@ -10,16 +10,16 @@ let package = Package(
   ],
   
   products: [
-    .library(name: "SettingsFeature", targets: ["SettingsFeature"]),
-    .library(name: "SettingsColorsFeature", targets: ["SettingsColorsFeature"]),
-    .library(name: "SettingsGpsFeature", targets: ["SettingsGpsFeature"]),
-    .library(name: "SettingsNetworkFeature", targets: ["SettingsNetworkFeature"]),
-    .library(name: "SettingsOtherFeature", targets: ["SettingsOtherFeature"]),
-    .library(name: "SettingsPhoneCwFeature", targets: ["SettingsPhoneCwFeature"]),
-    .library(name: "SettingsProfilesFeature", targets: ["SettingsProfilesFeature"]),
-    .library(name: "SettingsRadioFeature", targets: ["SettingsRadioFeature"]),
-    .library(name: "SettingsTxFeature", targets: ["SettingsTxFeature"]),
-    .library(name: "SettingsXvtrFeature", targets: ["SettingsXvtrFeature"]),
+    .library(name: "SettingsPanel", targets: ["SettingsPanel"]),
+    .library(name: "ColorSettings", targets: ["ColorSettings"]),
+    .library(name: "GpsSettings", targets: ["GpsSettings"]),
+    .library(name: "NetworkSettings", targets: ["NetworkSettings"]),
+    .library(name: "OtherSettings", targets: ["OtherSettings"]),
+    .library(name: "PhoneCwSettings", targets: ["PhoneCwSettings"]),
+    .library(name: "ProfileSettings", targets: ["ProfileSettings"]),
+    .library(name: "RadioSettings", targets: ["RadioSettings"]),
+    .library(name: "TxSettings", targets: ["TxSettings"]),
+    .library(name: "XvtrSettings", targets: ["XvtrSettings"]),
   ],
   
   dependencies: [
@@ -32,68 +32,68 @@ let package = Package(
   
   // --------------- Modules ---------------
   targets: [
-    // ColorsFeature
-    .target(name: "SettingsColorsFeature", dependencies: [
+    // ColorSettings
+    .target(name: "ColorSettings", dependencies: [
       .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
-    // GpsFeature
-    .target(name: "SettingsGpsFeature", dependencies: [
+    // GpsSettings
+    .target(name: "GpsSettings", dependencies: [
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
-    // NetworkFeature
-    .target(name: "SettingsNetworkFeature", dependencies: [
+    // NetworkSettings
+    .target(name: "NetworkSettings", dependencies: [
       .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
-    // OtherFeature
-    .target(name: "SettingsOtherFeature", dependencies: [
+    // OtherSettings
+    .target(name: "OtherSettings", dependencies: [
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
-    // PhoneCwFeature
-    .target(name: "SettingsPhoneCwFeature", dependencies: [
+    // PhoneCwSettings
+    .target(name: "PhoneCwSettings", dependencies: [
       .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
-    // ProfilesFeature
-    .target(name: "SettingsProfilesFeature", dependencies: [
+    // ProfileSettings
+    .target(name: "ProfileSettings", dependencies: [
       .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
-    // RadioFeature
-    .target(name: "SettingsRadioFeature", dependencies: [
+    // RadioSettings
+    .target(name: "RadioSettings", dependencies: [
       .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
-    // TxFeature
-    .target(name: "SettingsTxFeature", dependencies: [
+    // TxSettings
+    .target(name: "TxSettings", dependencies: [
       .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
-    // XvtrFeature
-    .target(name: "SettingsXvtrFeature", dependencies: [
+    // XvtrSettings
+    .target(name: "XvtrSettings", dependencies: [
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
-    // SettingsFeature
-    .target(name: "SettingsFeature", dependencies: [
-      "SettingsColorsFeature",
-      "SettingsGpsFeature",
-      "SettingsNetworkFeature",
-      "SettingsOtherFeature",
-      "SettingsPhoneCwFeature",
-      "SettingsProfilesFeature",
-      "SettingsRadioFeature",
-      "SettingsTxFeature",
-      "SettingsXvtrFeature",
+    // SettingsPanel
+    .target(name: "SettingsPanel", dependencies: [
+      "ColorSettings",
+      "GpsSettings",
+      "NetworkSettings",
+      "OtherSettings",
+      "PhoneCwSettings",
+      "ProfileSettings",
+      "RadioSettings",
+      "TxSettings",
+      "XvtrSettings",
       .product(name: "ApiIntView", package: "CustomControlFeatures"),
       .product(name: "ApiStringView", package: "CustomControlFeatures"),
       .product(name: "FlexApi", package: "ApiFeatures"),
