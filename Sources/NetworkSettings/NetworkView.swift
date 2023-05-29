@@ -61,7 +61,7 @@ private struct CurrentAddressView: View {
   var body: some View {
     GridRow() {
       Text("Serial number")
-      Text(radio.packet?.serial ?? "").foregroundColor(.secondary)
+      Text(radio.packet.serial).foregroundColor(.secondary)
       Text("MAC Address")
       Text(radio.macAddress).foregroundColor(.secondary)
     }

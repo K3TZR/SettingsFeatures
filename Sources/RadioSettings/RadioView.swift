@@ -66,7 +66,7 @@ private struct RadioGridView: View {
     Grid(alignment: .leading, horizontalSpacing: 30, verticalSpacing: 10) {
       GridRow() {
         Text("Serial Number")
-        Text(radio.packet?.serial ?? "")
+        Text(radio.packet.serial )
       }
       GridRow() {
         Text("Hardware Version")

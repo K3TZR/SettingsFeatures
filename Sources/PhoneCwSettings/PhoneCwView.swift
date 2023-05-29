@@ -18,12 +18,13 @@ public struct PhoneCwView: View {
   public init(store: StoreOf<PhoneCwFeature>) {
     self.store = store
   }
+  @Dependency(\.apiModel) var apiModel
   @Dependency(\.objectModel) var objectModel
   
   public var body: some View {
     
     WithViewStore(self.store, observe: { $0 }) { viewStore in
-      if objectModel.radio == nil {
+      if apiModel.radio == nil {
         VStack {
           Text("Radio must be connected").font(.title).foregroundColor(.red)
           Text("to use PhoneCw Settings").font(.title).foregroundColor(.red)
@@ -44,13 +45,13 @@ public struct PhoneCwView: View {
           }
           Group {
             Spacer()
-            RttyGridView(viewStore: viewStore, radio: objectModel.radio ?? Radio(Packet()))
+            RttyGridView(viewStore: viewStore, radio: apiModel.radio ?? Radio(Packet()))
             Spacer()
             Divider().foregroundColor(.blue)
           }
           Group {
             Spacer()
-            FiltersGridView(viewStore: viewStore, radio: objectModel.radio ?? Radio(Packet()))
+            FiltersGridView(viewStore: viewStore, radio: apiModel.radio ?? Radio(Packet()))
             Spacer()
           }
         }

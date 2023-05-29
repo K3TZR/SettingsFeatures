@@ -37,10 +37,12 @@ public enum SettingType: String {
 public struct SettingsView: View {
   let store: StoreOf<SettingsFeature>
   @ObservedObject var objectModel: ObjectModel
-  
-  public init(store: StoreOf<SettingsFeature>, objectModel: ObjectModel) {
+  @ObservedObject var apiModel: ApiModel
+
+  public init(store: StoreOf<SettingsFeature>, objectModel: ObjectModel, apiModel: ApiModel) {
     self.store = store
     self.objectModel = objectModel
+    self.apiModel = apiModel
   }
   
   @AppStorage("selectedSettingType") var selectedSettingType: SettingType = .radio
@@ -53,7 +55,7 @@ public struct SettingsView: View {
         Group {
           RadioView(store: Store(
             initialState: RadioFeature.State(),
-            reducer: RadioFeature()), radio: objectModel.radio ?? Radio(Packet()))
+            reducer: RadioFeature()), radio: apiModel.radio ?? Radio(Packet()))
           .tabItem {
             Text(SettingType.radio.rawValue)
             Image(systemName: "antenna.radiowaves.left.and.right")
@@ -61,7 +63,7 @@ public struct SettingsView: View {
           
           NetworkView(store: Store(initialState: NetworkFeature.State(),
                                            reducer: NetworkFeature()),
-                              radio: objectModel.radio ?? Radio(Packet()) )
+                              radio: apiModel.radio ?? Radio(Packet()) )
           .tabItem {
             Text(SettingType.network.rawValue)
             Image(systemName: "wifi")
@@ -141,7 +143,8 @@ struct SettingsView_Previews: PreviewProvider {
   static var previews: some View {
     SettingsView(store: Store(initialState: SettingsFeature.State(),
                               reducer: SettingsFeature()),
-                 objectModel: ObjectModel())
+                 objectModel: ObjectModel(),
+                 apiModel: ApiModel())
     .frame(width: 600, height: 350)
     .padding()
   }
