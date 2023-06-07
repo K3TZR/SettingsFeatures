@@ -15,7 +15,10 @@ public struct OtherView: View {
     self.store = store
   }
   @AppStorage("meterId") public var meterId: Int = 4
+  @AppStorage("logBroadcasts") var logBroadcasts = false
+  @AppStorage("ignoreTimeStamps") var ignoreTimeStamps = false
   
+
   struct Meter {
     var id: Int
     var name: String
@@ -46,6 +49,9 @@ public struct OtherView: View {
       .labelsHidden()
       .pickerStyle(.menu)
       .frame(width: 100, alignment: .leading)
+      
+      Toggle("Log Broadcasts", isOn: $logBroadcasts )
+      Toggle("Ignore TimeStamps", isOn: $ignoreTimeStamps )
     }
   }
 }
