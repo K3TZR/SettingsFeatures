@@ -12,6 +12,7 @@ let package = Package(
   products: [
     .library(name: "SettingsPanel", targets: ["SettingsPanel"]),
     .library(name: "ColorSettings", targets: ["ColorSettings"]),
+    .library(name: "ConnectionSettings", targets: ["ConnectionSettings"]),
     .library(name: "GpsSettings", targets: ["GpsSettings"]),
     .library(name: "NetworkSettings", targets: ["NetworkSettings"]),
     .library(name: "OtherSettings", targets: ["OtherSettings"]),
@@ -38,6 +39,12 @@ let package = Package(
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
+    // ConnectionSettings
+    .target(name: "ConnectionSettings", dependencies: [
+      .product(name: "FlexApi", package: "ApiFeatures"),
+      .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
+    ]),
+
     // GpsSettings
     .target(name: "GpsSettings", dependencies: [
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
@@ -51,6 +58,8 @@ let package = Package(
 
     // OtherSettings
     .target(name: "OtherSettings", dependencies: [
+      .product(name: "ApiStringView", package: "CustomControlFeatures"),
+      .product(name: "FlexApi", package: "ApiFeatures"),
       .product(name: "ComposableArchitecture", package: "swift-composable-architecture"),
     ]),
 
@@ -86,6 +95,7 @@ let package = Package(
     // SettingsPanel
     .target(name: "SettingsPanel", dependencies: [
       "ColorSettings",
+      "ConnectionSettings",
       "GpsSettings",
       "NetworkSettings",
       "OtherSettings",

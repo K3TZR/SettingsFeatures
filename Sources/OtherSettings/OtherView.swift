@@ -8,17 +8,23 @@
 import ComposableArchitecture
 import SwiftUI
 
+//import ApiStringView
+import FlexApi
+
 public struct OtherView: View {
   let store: StoreOf<OtherFeature>
-
+  
   public init(store: StoreOf<OtherFeature>) {
     self.store = store
   }
+  @Dependency(\.apiModel) var apiModel
+  
   @AppStorage("meterId") public var meterId: Int = 4
   @AppStorage("logBroadcasts") var logBroadcasts = false
   @AppStorage("ignoreTimeStamps") var ignoreTimeStamps = false
   
-
+  @State var altName = ""
+  
   struct Meter {
     var id: Int
     var name: String
@@ -28,7 +34,7 @@ public struct OtherView: View {
       self.name = name
     }
   }
-
+  
   // FIXME: Only valid for Flex-6500 ???
   let meters = [
     Meter(1, "micpeak"),Meter(2, "mic"),Meter(3, "hwalc"),Meter(4, "+13.8a"),Meter(5, "+13.8b"),
@@ -40,18 +46,47 @@ public struct OtherView: View {
   ]
   
   public var body: some View {
-    VStack {
-      Picker("", selection: $meterId) {
-        ForEach(meters, id: \.id) { meter in
-          Text(meter.name).tag(meter.id)
-        }
-      }
-      .labelsHidden()
-      .pickerStyle(.menu)
-      .frame(width: 100, alignment: .leading)
+    WithViewStore(self.store, observe: { $0 }) { viewStore in
       
-      Toggle("Log Broadcasts", isOn: $logBroadcasts )
-      Toggle("Ignore TimeStamps", isOn: $ignoreTimeStamps )
+      VStack {
+        Picker("Monitor meter", selection: $meterId) {
+          ForEach(meters, id: \.id) { meter in
+            Text(meter.name).tag(meter.id)
+          }
+        }
+        .labelsHidden()
+        .pickerStyle(.menu)
+        .frame(width: 100, alignment: .leading)
+        
+        Spacer()
+        Toggle("Log Broadcasts", isOn: $logBroadcasts )
+        Toggle("Ignore TimeStamps", isOn: $ignoreTimeStamps )
+        
+        Spacer()
+        
+        VStack {
+          Text("Custom Antenna Names")
+          Divider()
+          Grid (verticalSpacing: 10) {
+            
+//            ForEach(apiModel.altAntennaList, id: \.self) { alternate in
+//              Text(alternate.customName)
+//            }
+            
+            
+            
+            ForEach(viewStore.antList, id: \.self) { antenna in
+              GridRow {
+                Text(antenna)
+                TextField("alt name", text: viewStore.binding(
+                  get: {_ in apiModel.altAntennaName(for: antenna) },
+                  send: { .addAltName(antenna, $0) }))
+              }.frame(width: 120)
+            }
+          }
+        }.frame(width: 200)
+        Spacer()
+      }
     }
   }
 }
@@ -59,8 +94,8 @@ public struct OtherView: View {
 struct OtherView_Previews: PreviewProvider {
   static var previews: some View {
     OtherView(store: Store(
-      initialState: OtherFeature.State(),
+      initialState: OtherFeature.State(antList: []),
       reducer: OtherFeature())
-    )
+    ).frame(width: 500, height: 400)
   }
 }
