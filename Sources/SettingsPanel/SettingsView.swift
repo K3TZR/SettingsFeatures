@@ -50,7 +50,6 @@ public struct SettingsView: View {
   @AppStorage("selectedSettingType") var selectedSettingType: SettingType = .radio
   @AppStorage("selectedProfileType") var selectedProfileType: ProfileType = .mic
   
-  
   public var body: some View {
     WithViewStore(self.store, observe: { $0 }) { viewStore in
       TabView(selection: $selectedSettingType) {

@@ -22,6 +22,7 @@ public struct ProfilesView: View {
   public init(store: StoreOf<ProfilesFeature>) {
     self.store = store
   }
+
   @AppStorage("selectedProfileType") var selectedProfileType: ProfileType = .mic
   
   @Dependency(\.apiModel) var apiModel
@@ -29,21 +30,24 @@ public struct ProfilesView: View {
   
   public var body: some View {
     
-    if apiModel.clientInitialized {
-      ProfileView(store: store, profile: objectModel.profiles[id: selectedProfileType.rawValue]!, profileType: selectedProfileType)
+    if objectModel.profiles.count > 0 {
+      ForEach(objectModel.profiles) { profile in
+        if selectedProfileType.rawValue == profile.id {
+          ProfileView(store: store, profile: profile)
+        }
+      }
     } else {
       VStack {
         Text("Radio must be connected").font(.title).foregroundColor(.red)
         Text("to use Profile Settings").font(.title).foregroundColor(.red)
-      }      
+      }
     }
   }
 }
 
 private struct ProfileView: View {
   let store: StoreOf<ProfilesFeature>
-  let profile: Profile
-  let profileType: ProfileType
+  @ObservedObject var profile: Profile
   
   @State private var selection: String?
   @State private var newProfileName = ""
@@ -54,37 +58,28 @@ private struct ProfileView: View {
         HStack(spacing: 40) {
           ControlGroup {
             Toggle("MIC", isOn: viewStore.binding(
-              get: {_ in profileType == .mic},
+              get: {_ in profile.id == ProfileType.mic.rawValue},
               send: .profileType(.mic) ))
             Toggle("TX", isOn: viewStore.binding(
-              get: {_ in profileType == .tx},
+              get: {_ in profile.id == ProfileType.tx.rawValue},
               send: .profileType(.tx) ))
             Toggle("GLOBAL", isOn: viewStore.binding(
-              get: {_ in profileType == .global},
+              get: {_ in profile.id == ProfileType.global.rawValue},
               send: .profileType(.global) ))
           }
         }
         .font(.title)
         .foregroundColor(.blue)
         
-        Spacer()
-        TextField("New Profile Name", text: $newProfileName)
-        Spacer()
-        
-        
-        List(profile.list, id: \.self, selection: $selection) { name in
-          Text(name).tag(name)
+        List($profile.list, id: \.self, selection: $selection) { $name in
+          TextField("Name", text: $name).tag(name)
             .foregroundColor(profile.current == name ? .red : nil)
-            .onTapGesture {
-              selection = selection == nil ? name : nil
-            }
         }
         Divider().foregroundColor(.blue)
         
         HStack {
           Spacer()
-          Button("New") { viewStore.send(.profileProperty(profile, "create", newProfileName)) }
-            .disabled(newProfileName.isEmpty)
+          Button("New") { viewStore.send(.profileProperty(profile, "create", "A New Profile")) }
           Group {
             Button("Delete") { viewStore.send(.profileProperty(profile, "delete", selection!)) }
             Button("Reset") { viewStore.send(.profileProperty(profile, "reset", selection!)) }

@@ -17,12 +17,14 @@ public struct OtherView: View {
   public init(store: StoreOf<OtherFeature>) {
     self.store = store
   }
-  @Dependency(\.apiModel) var apiModel
   
   @AppStorage("meterId") public var meterId: Int = 4
   @AppStorage("logBroadcasts") var logBroadcasts = false
   @AppStorage("ignoreTimeStamps") var ignoreTimeStamps = false
-  
+  @AppStorage("alertOnError") var alertOnError = false
+
+  @Dependency(\.apiModel) var apiModel
+
   @State var altName = ""
   
   struct Meter {
@@ -61,20 +63,14 @@ public struct OtherView: View {
         Spacer()
         Toggle("Log Broadcasts", isOn: $logBroadcasts )
         Toggle("Ignore TimeStamps", isOn: $ignoreTimeStamps )
-        
+        Toggle("Alert on Error / Warning", isOn: $alertOnError )
+
         Spacer()
         
         VStack {
           Text("Custom Antenna Names")
           Divider()
           Grid (verticalSpacing: 10) {
-            
-//            ForEach(apiModel.altAntennaList, id: \.self) { alternate in
-//              Text(alternate.customName)
-//            }
-            
-            
-            
             ForEach(viewStore.antList, id: \.self) { antenna in
               GridRow {
                 Text(antenna)

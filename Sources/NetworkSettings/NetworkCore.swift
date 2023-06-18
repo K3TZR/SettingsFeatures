@@ -8,6 +8,8 @@
 import Foundation
 import ComposableArchitecture
 
+import FlexApi
+
 public struct NetworkFeature: ReducerProtocol {
   
   public init() {}
@@ -17,12 +19,12 @@ public struct NetworkFeature: ReducerProtocol {
   }
   
   public enum Action: Equatable {
-    case enforcePrivateIpButton
-    case addressType(String)
-    case applyStaticButton
-    case staticIp(String)
-    case staticMask(String)
-    case staticGateway(String)
+    case enforcePrivateIpButton(Radio, Bool)
+    case addressType(Radio, String)
+    case applyStaticButton(Radio)
+    case staticIp(Radio, String)
+    case staticMask(Radio, String)
+    case staticGateway(Radio,String)
   }
   
   public func reduce(into state: inout State, action: Action) ->  EffectTask<Action> {
@@ -30,44 +32,49 @@ public struct NetworkFeature: ReducerProtocol {
     // FIXME:
 
     switch action {
+      
+      // FIXME: ????
 
-    case let .addressType(type):
+    case .addressType(_, _):
+//    case let .addressType(radio, type):
+//      print("----->>>>> addressType = \(type)")
 //      return .run { _ in
 //        if type == "DHCP" {
-//          await objectModel.radio?.radioDhcpCmd()
 //        } else {
-//          await objectModel.radio?.radioStaticCmd()
 //        }
 //      }
       return .none
 
-    case .applyStaticButton:
+    case .applyStaticButton(_):
+//    case let .applyStaticButton(radio):
+//      print("----->>>>> applyStaticButton")
 //      return .run { _ in
-//        await objectModel.radio?.radioStaticCmd()
 //      }
       return .none
 
-    case .enforcePrivateIpButton:
+    case let .enforcePrivateIpButton(radio, boolValue):
+      return .run { _ in
+        await radio.setProperty(.enforcePrivateIpEnabled, boolValue.as1or0)
+      }
+
+    case .staticIp(_, _):
+//    case let .staticIp(radio, ip):
+//      print("----->>>>> static ip = \(ip)")
 //      return .run { _ in
-//        await objectModel.radio?.setAndSend(.enforcePrivateIpEnabled)
 //      }
       return .none
 
-    case let .staticIp(ip):
+    case .staticMask(_, _):
+//    case let .staticMask(radio, mask):
+//      print("----->>>>> static mask = \(mask)")
 //      return .run { _ in
-//        await objectModel.radio?.setAndSend(Radio.StaticNetProperty.ip, ip)
 //      }
       return .none
 
-    case let .staticMask(mask):
+    case .staticGateway(_, _):
+//    case let .staticGateway(radio, gateway):
+//      print("----->>>>> static gateway = \(gateway)")
 //      return .run { _ in
-//        await objectModel.radio?.setAndSend(Radio.StaticNetProperty.mask, mask)
-//      }
-      return .none
-
-    case let .staticGateway(gateway):
-//      return .run { _ in
-//        await objectModel.radio?.setAndSend(Radio.StaticNetProperty.gateway, gateway)
 //      }
       return .none
     }

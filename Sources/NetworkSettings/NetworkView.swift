@@ -27,10 +27,10 @@ public struct NetworkView: View {
       if apiModel.clientInitialized {
         VStack {
           Spacer()
-          Grid(alignment: .leading, horizontalSpacing: 40, verticalSpacing: 20) {
-            CurrentAddressView(viewStore: viewStore, radio: radio)
+          Grid(alignment: .leading, horizontalSpacing: 10, verticalSpacing: 20) {
+            CurrentAddressView(viewStore: viewStore, radio: radio, apiModel: apiModel)
             Spacer()
-            Divider().foregroundColor(.blue)
+            Divider().background(Color(.blue))
             Spacer()
             StaticAddressView(viewStore: viewStore, radio: radio)
             Spacer()
@@ -49,44 +49,49 @@ public struct NetworkView: View {
 private struct CurrentAddressView: View {
   let viewStore: ViewStore<NetworkFeature.State, NetworkFeature.Action>
   @ObservedObject var radio: Radio
-  
-  init(viewStore: ViewStore<NetworkFeature.State, NetworkFeature.Action>, radio: Radio) {
+  @ObservedObject var apiModel: ApiModel
+
+  init(viewStore: ViewStore<NetworkFeature.State, NetworkFeature.Action>, radio: Radio, apiModel: ApiModel) {
     self.viewStore = viewStore
     self.radio = radio
+    self.apiModel = apiModel
   }
   
   private var addressTypes = ["Static", "DHCP"]
-  private let width: CGFloat = 140
+//  private let width: CGFloat = 140
   
   var body: some View {
-    GridRow() {
+    GridRow {
       Text("Serial number")
       Text(radio.packet.serial).foregroundColor(.secondary)
       Text("MAC Address")
-      Text(radio.macAddress).foregroundColor(.secondary)
+      Text(apiModel.macAddress).foregroundColor(.secondary)
     }
-    GridRow() {
+    
+    GridRow {
       Text("IP Address")
-      Text(radio.ipAddress).foregroundColor(.secondary)
+      Text(radio.packet.publicIp).foregroundColor(.secondary)
       Text("Mask")
-      Text(radio.netmask).foregroundColor(.secondary)
+      Text(apiModel.netmask).foregroundColor(.secondary)
     }
-    GridRow() {
+    
+    GridRow {
       Text("Address Type")
       Picker("", selection: viewStore.binding(
         get: {_ in radio.addressType },
-        send: { .addressType($0) } )) {
+        send: { .addressType(radio, $0) } )) {
           ForEach(addressTypes, id: \.self) {
             Text($0)
           }
         }
         .labelsHidden()
-        .pickerStyle(.menu)
-//        .frame(width: width)
+        .pickerStyle(.segmented)
+        .frame(width: 100)
       
       Toggle("Enforce Private IP", isOn: viewStore.binding(
         get: {_ in radio.enforcePrivateIpEnabled },
-        send: .enforcePrivateIpButton ))
+        send: { .enforcePrivateIpButton(radio, $0) } ))
+      .gridCellColumns(2)
     }
   }
 }
@@ -99,21 +104,21 @@ private struct StaticAddressView: View {
   
   var body: some View {
     
-    Text("Static Address").font(.title3).foregroundColor(.blue)
+    Text("Static Address (----- NOT implemented -----)").font(.title3).foregroundColor(.blue)
     GridRow() {
-      Button("Apply") { viewStore.send(.applyStaticButton)}
+      Button("Apply") { viewStore.send(.applyStaticButton(radio))}
         .disabled(radio.staticIp.isEmpty || radio.staticMask.isEmpty || radio.staticGateway.isEmpty)
     }
-    GridRow() {
+    GridRow {
       Text("IP Address")
-      ApiStringView(value: radio.staticIp, action: { _ in } , width: width)
+      ApiStringView(hint: "Static ip", value: radio.staticIp, action: { viewStore.send(.staticIp(radio, $0)) } , width: width)
       
       Text("Mask")
-      ApiStringView(value: radio.staticMask, action: { _ in } , width: width)
+      ApiStringView(hint: "Static mask", value: radio.staticMask, action: { viewStore.send(.staticMask(radio, $0)) } , width: width)
     }
-    GridRow() {
+    GridRow {
       Text("Gateway")
-      ApiStringView(value: radio.staticGateway, action: { _ in } , width: width)
+      ApiStringView(hint: "Static gateway", value: radio.staticGateway, action: { viewStore.send(.staticGateway(radio, $0)) } , width: width)
     }
   }
 }

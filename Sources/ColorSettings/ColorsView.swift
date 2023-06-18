@@ -15,6 +15,23 @@ public struct ColorsView: View {
     self.store = store
   }
   
+  @AppStorage("dbLegend") var dbLegend: Color = defaultColors["dbLegend"]!
+  @AppStorage("dbLines") var dbLines: Color = defaultColors["dbLines"]!
+  @AppStorage("frequencyLegend") var frequencyLegend: Color = defaultColors["frequencyLegend"]!
+  @AppStorage("gridLines") var gridLines: Color = defaultColors["gridLines"]!
+  @AppStorage("markerEdge") var markerEdge: Color = defaultColors["markerEdge"]!
+  @AppStorage("markerSegment") var markerSegment: Color = defaultColors["markerSegment"]!
+  @AppStorage("spectrum") var spectrum: Color = defaultColors["spectrum"]!
+  @AppStorage("spectrumFill") var spectrumFill: Color = defaultColors["spectrumFill"]!
+  
+  @AppStorage("background") var background: Color = defaultColors["background"]!
+  @AppStorage("marker") var marker: Color = defaultColors["marker"]!
+  @AppStorage("sliceActive") var sliceActive: Color = defaultColors["sliceActive"]!
+  @AppStorage("sliceFilter") var sliceFilter: Color = defaultColors["sliceFilter"]!
+  @AppStorage("sliceInactive") var sliceInactive: Color = defaultColors["sliceInactive"]!
+  @AppStorage("tnfActive") var tnfActive: Color = defaultColors["tnfActive"]!
+  @AppStorage("tnfInactive") var tnfInactive: Color = defaultColors["tnfInactive"]!
+
   static let defaultColors: Dictionary<String,Color> =
   [
     "dbLegend": .green,
@@ -34,24 +51,6 @@ public struct ColorsView: View {
     "tnfActive": .green.opacity(0.2),
     "tnfInactive": .yellow.opacity(0.2),
   ]
-  
-  @AppStorage("dbLegend") var dbLegend: Color = defaultColors["dbLegend"]!
-  @AppStorage("dbLines") var dbLines: Color = defaultColors["dbLines"]!
-  @AppStorage("frequencyLegend") var frequencyLegend: Color = defaultColors["frequencyLegend"]!
-  @AppStorage("gridLines") var gridLines: Color = defaultColors["gridLines"]!
-  @AppStorage("markerEdge") var markerEdge: Color = defaultColors["markerEdge"]!
-  @AppStorage("markerSegment") var markerSegment: Color = defaultColors["markerSegment"]!
-  @AppStorage("spectrum") var spectrum: Color = defaultColors["spectrum"]!
-  @AppStorage("spectrumFill") var spectrumFill: Color = defaultColors["spectrumFill"]!
-  
-  @AppStorage("background") var background: Color = defaultColors["background"]!
-  @AppStorage("marker") var marker: Color = defaultColors["marker"]!
-  @AppStorage("sliceActive") var sliceActive: Color = defaultColors["sliceActive"]!
-  @AppStorage("sliceFilter") var sliceFilter: Color = defaultColors["sliceFilter"]!
-  @AppStorage("sliceInactive") var sliceInactive: Color = defaultColors["sliceInactive"]!
-  @AppStorage("tnfActive") var tnfActive: Color = defaultColors["tnfActive"]!
-  @AppStorage("tnfInactive") var tnfInactive: Color = defaultColors["tnfInactive"]!
-  
   
   func resetAll() {
     dbLegend = ColorsView.defaultColors["dbLegend"]!
