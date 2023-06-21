@@ -22,10 +22,10 @@ public struct ConnectionView: View {
     VStack(alignment: .leading) {
       HeadingView()
       Spacer()
-      Divider()
+      Divider().background(Color.blue)
       Spacer()
       ListHeadingView()
-      Divider().background(Color.blue)
+      Divider()
       ListView(apiModel: apiModel)
         .frame(height: 200)
     }
@@ -34,37 +34,31 @@ public struct ConnectionView: View {
 
 private struct HeadingView: View {
   
-  @AppStorage("discoveryType") var discoveryType = DiscoveryType.broadcast.rawValue
+  @AppStorage("directEnabled") var directEnabled = false
   @AppStorage("localEnabled") var localEnabled = true
   @AppStorage("smartlinkEnabled") var smartlinkEnabled = false
+  @AppStorage("loginRequired") var loginRequired = true
   @AppStorage("useDefault") var useDefault = false
 
   public var body: some View {
 
-    Grid {
-      GridRow {
-        Text("Discovery Type").frame(width: 140, alignment: .leading)
-        Picker("", selection: $discoveryType) {
-          Text(DiscoveryType.broadcast.rawValue).tag(DiscoveryType.broadcast.rawValue)
-          Text(DiscoveryType.direct.rawValue).tag(DiscoveryType.direct.rawValue)
-        }
-        .frame(width: 200, alignment: .leading)
-        .labelsHidden()
-        .pickerStyle(.radioGroup)
-        .horizontalRadioGroupLayout()
+    Grid(alignment: .leading) {
         
-        Toggle("Use Default", isOn: $useDefault)
-      }
       GridRow {
         Text("Connection Type").frame(width: 140, alignment: .leading)
         ControlGroup {
+          Toggle(isOn: $directEnabled) {
+            Text("Direct") }
           Toggle(isOn: $localEnabled) {
             Text("Local") }
           Toggle(isOn: $smartlinkEnabled) {
             Text("Smartlink") }
         }
-        .disabled(discoveryType == DiscoveryType.direct.rawValue)
-        .frame(width: 200)
+        .frame(width: 150)
+      }
+      GridRow {
+        Toggle("Use Default", isOn: $useDefault)
+        Toggle("Login required", isOn: $loginRequired)
       }
     }
   }
@@ -82,7 +76,6 @@ private struct ListHeadingView: View {
     HStack {
       Group {
         Text("Name")
-        Text("Location")
         Text("IP Address")
       }
       .frame(width: 180, alignment: .leading)
@@ -111,7 +104,7 @@ private struct ListView: View {
         }
       }
       
-      Divider().background(Color.blue)
+      Divider()
       
       HStack (spacing: 40) {
         Spacer()
