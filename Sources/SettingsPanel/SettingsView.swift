@@ -88,11 +88,6 @@ public struct SettingsView: View {
         }
         
         Group {
-          //          RxSettingsView()
-          //            .tabItem {
-          //              Text("Rx")
-          //              Image(systemName: "headphones")
-          //            }
           XvtrView()
           .tabItem {
             Text(SettingType.xvtrs.rawValue)

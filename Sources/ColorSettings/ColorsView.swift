@@ -8,6 +8,8 @@
 import ComposableArchitecture
 import SwiftUI
 
+import Shared
+
 public struct ColorsView: View {
   let store: StoreOf<ColorsFeature>
   
@@ -15,138 +17,139 @@ public struct ColorsView: View {
     self.store = store
   }
   
-  @AppStorage("dbLegend") var dbLegend: Color = defaultColors["dbLegend"]!
-  @AppStorage("dbLines") var dbLines: Color = defaultColors["dbLines"]!
-  @AppStorage("frequencyLegend") var frequencyLegend: Color = defaultColors["frequencyLegend"]!
-  @AppStorage("gridLines") var gridLines: Color = defaultColors["gridLines"]!
-  @AppStorage("markerEdge") var markerEdge: Color = defaultColors["markerEdge"]!
-  @AppStorage("markerSegment") var markerSegment: Color = defaultColors["markerSegment"]!
-  @AppStorage("spectrum") var spectrum: Color = defaultColors["spectrum"]!
-  @AppStorage("spectrumFill") var spectrumFill: Color = defaultColors["spectrumFill"]!
-  
-  @AppStorage("background") var background: Color = defaultColors["background"]!
-  @AppStorage("marker") var marker: Color = defaultColors["marker"]!
-  @AppStorage("sliceActive") var sliceActive: Color = defaultColors["sliceActive"]!
-  @AppStorage("sliceFilter") var sliceFilter: Color = defaultColors["sliceFilter"]!
-  @AppStorage("sliceInactive") var sliceInactive: Color = defaultColors["sliceInactive"]!
-  @AppStorage("tnfActive") var tnfActive: Color = defaultColors["tnfActive"]!
-  @AppStorage("tnfInactive") var tnfInactive: Color = defaultColors["tnfInactive"]!
+  @AppStorage("backgroundColor") var backgroundColor = DefaultColors.backgroundColor
+  @AppStorage("dbLegendColor") var dbLegendColor = DefaultColors.dbLegendColor
+  @AppStorage("dbLinesColor") var dbLinesColor = DefaultColors.dbLinesColor
+  @AppStorage("frequencyLegendColor") var frequencyLegendColor = DefaultColors.frequencyLegendColor
+  @AppStorage("gridLinesColor") var gridLinesColor = DefaultColors.gridLinesColor
+  @AppStorage("markerColor") var markerColor = DefaultColors.markerColor
+  @AppStorage("markerEdgeColor") var markerEdgeColor = DefaultColors.markerEdgeColor
+  @AppStorage("markerSegmentColor") var markerSegmentColor = DefaultColors.markerSegmentColor
+  @AppStorage("sliceActiveColor") var sliceActiveColor = DefaultColors.sliceActiveColor
+  @AppStorage("sliceFilterColor") var sliceFilterColor = DefaultColors.sliceFilterColor
+  @AppStorage("sliceInactiveColor") var sliceInactiveColor = DefaultColors.sliceInactiveColor
+  @AppStorage("spectrumColor") var spectrumColor = DefaultColors.spectrumColor
+  @AppStorage("spectrumFillColor") var spectrumFillColor = DefaultColors.spectrumFillColor
+  @AppStorage("tnfDeepColor") var tnfDeepColor = DefaultColors.tnfDeepColor
+  @AppStorage("tnfInactiveColor") var tnfInactiveColor = DefaultColors.tnfInactiveColor
+  @AppStorage("tnfNormalColor") var tnfNormalColor = DefaultColors.tnfNormalColor
+  @AppStorage("tnfPermanentColor") var tnfPermanentColor = DefaultColors.tnfPermanentColor
+  @AppStorage("tnfVeryDeepColor") var tnfVeryDeepColor = DefaultColors.tnfVeryDeepColor
 
-  static let defaultColors: Dictionary<String,Color> =
-  [
-    "dbLegend": .green,
-    "dbLines": .white.opacity(0.3),
-    "frequencyLegend": .green,
-    "gridLines": .white.opacity(0.3),
-    "markerEdge": .red.opacity(0.2),
-    "markerSegment": .white.opacity(0.2),
-    "spectrum": .white,
-    "spectrumFill": .white.opacity(0.2),
-    
-    "background": .black,
-    "marker": .yellow,
-    "sliceActive": .red.opacity(0.6),
-    "sliceFilter": .white.opacity(0.3),
-    "sliceInactive": .yellow.opacity(0.6),
-    "tnfActive": .green.opacity(0.2),
-    "tnfInactive": .yellow.opacity(0.2),
-  ]
-  
-  func resetAll() {
-    dbLegend = ColorsView.defaultColors["dbLegend"]!
-    dbLines = ColorsView.defaultColors["dbLines"]!
-    frequencyLegend = ColorsView.defaultColors["frequencyLegend"]!
-    gridLines = ColorsView.defaultColors["gridLines"]!
-    markerEdge = ColorsView.defaultColors["markerEdge"]!
-    markerSegment = ColorsView.defaultColors["markerSegment"]!
-    spectrum = ColorsView.defaultColors["spectrum"]!
-    spectrumFill = ColorsView.defaultColors["spectrumFill"]!
-    background = ColorsView.defaultColors["background"]!
-    marker = ColorsView.defaultColors["marker"]!
-    sliceActive = ColorsView.defaultColors["sliceActive"]!
-    sliceInactive = ColorsView.defaultColors["sliceInactive"]!
-    tnfActive = ColorsView.defaultColors["tnfActive"]!
-    tnfInactive = ColorsView.defaultColors["tnfInactive"]!
-  }
-  
   public var body: some View {
     
     VStack {
       Grid(alignment: .leading, horizontalSpacing: 35, verticalSpacing: 15) {
         GridRow() {
           Text("Spectrum")
-          ColorPicker("", selection: $spectrum).labelsHidden()
-          Button("Reset") { spectrum = ColorsView.defaultColors["spectrum"]! }
+          ColorPicker("", selection: $spectrumColor).labelsHidden()
+          Button("Reset") { spectrumColor = DefaultColors.spectrumColor }
           
           Text("Spectrum Fill")
-          ColorPicker("", selection: $spectrumFill).labelsHidden()
-          Button("Reset") { spectrumFill = ColorsView.defaultColors["spectrumFill"]! }
+          ColorPicker("", selection: $spectrumFillColor).labelsHidden()
+            Button("Reset") { spectrumFillColor = DefaultColors.spectrumFillColor }
         }
         GridRow() {
           Text("Freq Legend")
-          ColorPicker("", selection: $frequencyLegend).labelsHidden()
-          Button("Reset") { frequencyLegend = ColorsView.defaultColors["frequencyLegend"]! }
+          ColorPicker("", selection: $frequencyLegendColor).labelsHidden()
+          Button("Reset") { frequencyLegendColor = DefaultColors.frequencyLegendColor }
           
           Text("Db Legend")
-          ColorPicker("", selection: $dbLegend).labelsHidden()
-          Button("Reset") { dbLegend = ColorsView.defaultColors["dbLegend"]! }
+          ColorPicker("", selection: $dbLegendColor).labelsHidden()
+            Button("Reset") { dbLegendColor = DefaultColors.dbLegendColor }
         }
         GridRow() {
           Text("Grid lines")
-          ColorPicker("", selection: $gridLines).labelsHidden()
-          Button("Reset") { gridLines = ColorsView.defaultColors["gridLines"]! }
+          ColorPicker("", selection: $gridLinesColor).labelsHidden()
+          Button("Reset") { gridLinesColor = DefaultColors.gridLinesColor }
           
           Text("Db lines")
-          ColorPicker("", selection: $dbLines).labelsHidden()
-          Button("Reset") { dbLines = ColorsView.defaultColors["dbLines"]! }
+          ColorPicker("", selection: $dbLinesColor).labelsHidden()
+            Button("Reset") { dbLinesColor = DefaultColors.dbLinesColor }
         }
         GridRow() {
           Text("Marker edge")
-          ColorPicker("", selection: $markerEdge).labelsHidden()
-          Button("Reset") { markerEdge = ColorsView.defaultColors["markerEdge"]! }
+          ColorPicker("", selection: $markerEdgeColor).labelsHidden()
+          Button("Reset") { markerEdgeColor = DefaultColors.markerEdgeColor }
           
           Text("Marker segment")
-          ColorPicker("", selection: $markerSegment).labelsHidden()
-          Button("Reset") { markerSegment = ColorsView.defaultColors["markerSegment"]! }
+          ColorPicker("", selection: $markerSegmentColor).labelsHidden()
+            Button("Reset") { markerSegmentColor = DefaultColors.markerSegmentColor }
         }
         GridRow() {
           Text("Slice filter")
-          ColorPicker("", selection: $sliceFilter).labelsHidden()
-          Button("Reset") { sliceFilter = ColorsView.defaultColors["sliceFilter"]! }
+          ColorPicker("", selection: $sliceFilterColor).labelsHidden()
+          Button("Reset") { sliceFilterColor = DefaultColors.sliceFilterColor }
           
           Text("Marker")
-          ColorPicker("", selection: $marker).labelsHidden()
-          Button("Reset") { marker = ColorsView.defaultColors["marker"]! }
+          ColorPicker("", selection: $markerColor).labelsHidden()
+            Button("Reset") { markerColor = DefaultColors.markerColor }
         }
         GridRow() {
-          Text("Tnf (active)")
-          ColorPicker("", selection: $tnfActive).labelsHidden()
-          Button("Reset") { tnfActive = ColorsView.defaultColors["tnfActive"]! }
-          
           Text("Tnf (Inactive)")
-          ColorPicker("", selection: $tnfInactive).labelsHidden()
-          Button("Reset") { tnfInactive = ColorsView.defaultColors["tnfInactive"]! }
+          ColorPicker("", selection: $tnfInactiveColor).labelsHidden()
+            Button("Reset") { tnfInactiveColor = DefaultColors.tnfInactiveColor }
+
+          Text("Tnf (normal)")
+          ColorPicker("", selection: $tnfNormalColor).labelsHidden()
+          Button("Reset") { tnfNormalColor = DefaultColors.tnfNormalColor }
+        }
+        GridRow() {
+          Text("Tnf (deep)")
+          ColorPicker("", selection: $tnfDeepColor).labelsHidden()
+            Button("Reset") { tnfDeepColor = DefaultColors.tnfDeepColor }
+
+          Text("Tnf (very deep)")
+          ColorPicker("", selection: $tnfVeryDeepColor).labelsHidden()
+          Button("Reset") { tnfVeryDeepColor = DefaultColors.tnfVeryDeepColor }
+        }
+        GridRow() {
+          Text("Tnf (permanent)")
+          ColorPicker("", selection: $tnfPermanentColor).labelsHidden()
+            Button("Reset") { tnfPermanentColor = DefaultColors.tnfPermanentColor }
+
+          Text("Background")
+          ColorPicker("", selection: $backgroundColor).labelsHidden()
+          Button("Reset") { backgroundColor = DefaultColors.backgroundColor }
         }
         GridRow() {
           Text("Slice (active)")
-          ColorPicker("", selection: $sliceActive).labelsHidden()
-          Button("Reset") { sliceActive = ColorsView.defaultColors["sliceActive"]! }
+          ColorPicker("", selection: $sliceActiveColor).labelsHidden()
+          Button("Reset") { sliceActiveColor = DefaultColors.sliceActiveColor }
           
           Text("Slice (Inactive)")
-          ColorPicker("", selection: $sliceInactive).labelsHidden()
-          Button("Reset") { sliceInactive = ColorsView.defaultColors["sliceInactive"]! }
-        }
-        GridRow() {
-          Text("Background")
-          ColorPicker("", selection: $background).labelsHidden()
-          Button("Reset") { background = ColorsView.defaultColors["background"]! }
+          ColorPicker("", selection: $sliceInactiveColor).labelsHidden()
+            Button("Reset") { sliceInactiveColor = DefaultColors.sliceInactiveColor }
         }
       }
+      Divider().background(Color.blue)
       HStack {
         Spacer()
         Button("Reset All") { resetAll() }
+        Spacer()
       }
     }
+  }
+  
+  func resetAll() {
+    backgroundColor = DefaultColors.backgroundColor
+    dbLegendColor = DefaultColors.dbLegendColor
+    dbLinesColor = DefaultColors.dbLinesColor
+    frequencyLegendColor = DefaultColors.frequencyLegendColor
+    gridLinesColor = DefaultColors.gridLinesColor
+    markerColor = DefaultColors.markerColor
+    markerEdgeColor = DefaultColors.markerEdgeColor
+    markerSegmentColor = DefaultColors.markerSegmentColor
+    sliceActiveColor = DefaultColors.sliceActiveColor
+    sliceFilterColor = DefaultColors.sliceFilterColor
+    sliceInactiveColor = DefaultColors.sliceInactiveColor
+    spectrumColor = DefaultColors.spectrumColor
+    spectrumFillColor = DefaultColors.spectrumFillColor
+    tnfDeepColor = DefaultColors.tnfDeepColor
+    tnfInactiveColor = DefaultColors.tnfInactiveColor
+    tnfNormalColor = DefaultColors.tnfNormalColor
+    tnfPermanentColor = DefaultColors.tnfPermanentColor
+    tnfVeryDeepColor = DefaultColors.tnfVeryDeepColor
   }
 }
 

@@ -32,7 +32,6 @@ public struct OtherFeature: ReducerProtocol {
     switch action {
     
     case let .addAltName(stdName, altName):
-      print("std = \(stdName), alt = \(altName)")
       apiModel.altAntennaName(for: stdName, altName)
       return .none
       
